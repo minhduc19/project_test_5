@@ -1,0 +1,169 @@
+
+
+<div class="card meetings cf">
+
+  <div class="textintro">
+    <h1>To-dos</h1>
+    <p>{{ message }}</p>
+    <form name = "myform"
+  		class="formgroup addmeeting cf" 
+  		ng-submit = "addTodo()"
+  		novalidate>
+
+  		<div class = "inputwrapper">
+  			<input type="text" name="todoName" placeholder="Todo name"
+  			ng-model = "todoName" ng-required = "true">
+
+        <div class="formgroup">
+          <span class="label">Importance:</span>
+          <select ng-model="importance" ng-required = "true">
+            <option value="3">EFFECT ON PEOPLE</option>
+            <option value="5">Just me only</option>
+            <option value="7">LOL</option>
+          </select><!--input for importance-->
+       
+          <span class="urgency">Urgency:</span>
+          <select ng-model="urgency" ng-required = "true">
+            <option value="3">MUST BE DONE TODAY</option>
+            <option value="5">THIS week</option>
+            <option value="7">Long term process</option>
+          </select><!--input for urgency-->
+
+        <button type="submit" class="btn" ng-disabled = "myform.$invalid"> + </button> 
+        </div><!--class = formgroup-->
+
+  			
+
+  		</div>
+  	
+  	</form><!--name = "myform"-->
+
+    <div class="formgroup">
+      <span class="label">Order by:</span>
+        <select ng-model="order">
+          <option value="level">DO IT NOW</option>
+          <option value="todo">Name</option>
+        </select>
+    </div>
+  	
+
+    <table>
+      <tr>
+  	<th><h2>Your to do {{howManytodos}}</h2></th>
+
+    <th><h2>Your doing {{howManydoing}}</h2></th>
+
+    <th><h2>Your finish {{howManydone}}</h2></th>
+      </tr>
+    
+    <tr>
+
+    <td>
+  	<div class="meeting" ng-repeat = "todo in todos | orderBy : order ">
+	  	<span class="text">{{todo.todo}}</span>
+
+      <div>
+	  	<a data-toggle="tooltip" title="Let's do this" class = " btn btn-default" ng-click = "moveToDoing(todo)"><span  class="glyphicon glyphicon-ok" aria-hidden="true"></span></a>
+
+			<button data-toggle="tooltip" data-placement="left" title="Delete this" class="btn btn-default" ng-show="currentUser" ng-click = "deleteTodo(todo.$id)">
+				<span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
+			</button>	
+
+			<button class = "btn btn-default" ng-click = "moredetail(todo)">
+				<span class= "glyphicon glyphicon-pencil"></span>
+			</button> <!---show form of add more detail-->
+
+      <button class = "btn btn-default" ng-click = "showEdit(todo)">
+        <span class= "glyphicon glyphicon-plus"></span>
+      </button> <!---show form of edit the to-do-->
+
+
+      <div class="showcheckins" ng-show = "todo.edit">
+
+        <form name = "editform" class = "cf" ng-submit = "editTodo(todo)" novalidate>
+            
+            <input type="text" name = "detail" placeholder="Edit here" ng-model = "todo.todo" ng-required = "true">
+
+     
+            <button type="submit" class="btn" ng-disabled = "editform.$invalid"> + </button>
+        </form><!--edit your to-do-->
+        
+       
+      </div>
+      
+
+			<div class="showcheckins" ng-show = "todo.show">
+
+				<form name = "thisform" class = "cf" ng-submit = "addDetail(todo)" novalidate>
+						<input type="text" name = "detail" placeholder="Add some detail" ng-model = "todo.detail" ng-required = "true">
+
+     
+						<button type="submit" class="btn" ng-disabled = "thisform.$invalid"> + </button>
+				</form><!--add your detail form-->
+        
+       
+			</div>
+
+      </div>
+			       <div style=" padding: 3px" ng-repeat = "detail in todo.details">
+            <a ng-click= "chooseClass()" ng-class= "Doneit" class="btn btn-info"  >
+              <p>{{detail.name}}</p>
+            
+            </a >
+            </div>
+        <!--show your detail-->
+     
+
+  	</div><!--todo section-->
+    </td>
+  	
+	 
+    
+  	
+    <td>
+  	<div class="meeting" ng-repeat = "doing in doings">
+  	<span class="text">{{doing.todo}}</span>
+   
+  	<a class = "btn btn-default" ng-click = "moveToDone(doing)"> <span class= "glyphicon glyphicon-ok"></span></a>
+
+    <button class = "btn btn-default" ng-click = "backTodo(doing)">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </button><!--back to your to-do -->
+
+   
+
+             <div style=" padding: 3px" ng-repeat = "detail in doing.details">
+            <a ng-click= "chooseClass(detail)" ng-class="detail.doneIt" class="btn btn-info"  >
+              <p>{{detail.name}}</p>
+            </a >
+            </div><!--show detail of doing -->
+
+    </div><!--doing section -->
+    </td>
+
+   
+    <td>
+      <div class="meeting" ng-repeat = "done in dones">
+    	<span class="text">{{done.todo}}</span>
+
+      <button class = "btn btn-default" ng-click = "backDoing(done)">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+      </button> <!--back to your doing -->
+
+       
+             <div style=" padding: 3px" ng-repeat = "detail in done.details">
+            <a ng-click= "chooseClass(detail)" ng-class="detail.doneIt" class="btn btn-info"  >
+              <p>{{detail.name}}</p>
+            </a >
+            </div><!--show detail of done -->
+
+    </div><!--done section -->
+    </td>
+
+    <tr>
+
+</table>
+ 
+
+</div><!-- meetings cf -->
+
