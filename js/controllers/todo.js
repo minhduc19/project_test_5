@@ -112,13 +112,10 @@ myApp.controller('SuccessController', ['$scope','$rootScope','$routeParams','$fi
 
 				var todosRef = new Firebase(FIREBASE_URL + 'users/' + 
 					$rootScope.currentUser.$id + '/todos/' + todo.$id);
-				delete todo["$id"];
-				delete todo["$priority"];
-				delete todo["edit"];
 				
-				var data = angular.fromJson(angular.toJson(todo));
-				todosRef.update(data);
-				todo.edit = false;
+				//var data = angular.fromJson(angular.toJson(todo));
+				todosRef.update({todo : todo.todo});
+				//todo.edit = false;
 			};//save edit to the database
 
 			$scope.addDetail = function(myTodo){

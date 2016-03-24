@@ -1,0 +1,45 @@
+<div ng-repeat="$id in test2 ">{{$id.$id}}</div>
+{{test2}}
+{{list}}
+
+<section class="card register">
+  <form name="myform"
+    ng-submit="dataArticle(article)"
+    novalidate>
+
+    <div class="textintro">
+      <h1>Data</h1>
+      
+    </div>
+
+    <fieldset>
+       <legend>Article data:</legend>
+     
+      <input type="text" name="article" placeholder="title of the article"
+      ng-model="article.title" ng-required="true">
+      <p class="error validationerror"
+      ng-show="myform.article.$invalid && myform.article.$touched">
+      Must be the title of the article</p>
+
+      <input type="text" name="lastname" placeholder="link of the article"
+      ng-model="article.link" ng-required="true">
+      <p class="error validationerror"
+      ng-show="myform.lastname.$invalid && myform.lastname.$touched">
+      Must be the link to the article</p>
+
+   
+    </fieldset>
+
+<button type="submit" ng-disabled="myform.$invalid">Submit</button>
+
+
+
+
+  </form>
+</section>
+
+<button ng-click = "test()">test</button>
+<button ng-click = "test1()">test1</button>
+
+  
+

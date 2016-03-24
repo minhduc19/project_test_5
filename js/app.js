@@ -1,5 +1,5 @@
 var myApp = angular.module('myApp',
-  ['ngRoute', 'firebase','ngSanitize'])
+  ['ngCookies' ,'ngRoute', 'firebase','ngSanitize'])
   .constant('FIREBASE_URL', 'https://minhduc16.firebaseio.com/');
 
 
@@ -25,13 +25,29 @@ myApp.config(['$routeProvider', function($routeProvider) {
       templateUrl: 'views/register.html',
       controller: 'RegistrationController'
     }).
-    when('/input_vocabulary', {
-      templateUrl: 'views/input_vocabulary.html',
+    when('/input_article', {
+      templateUrl: 'views/input_article.html',
       controller: 'VocabularyController'
     }).
-    when('/input_tag', {
+    when('/input_sentence/:articleId', {
+      templateUrl: 'views/input_sentence.html',
+      controller: 'VocabularyController'
+    }).
+    when('/input_tag/:articleId/:sentenceId', {
       templateUrl: 'views/input_tag.html',
       controller: 'VocabularyController'
+    }).
+     when('/display_sentence/:articleId', {
+      templateUrl: 'views/display_sentence.html',
+      controller: 'SentenceDisplay'
+    }).
+      when('/article_display', {
+      templateUrl: 'views/display_article.html',
+      controller: 'ArticleDisplay'
+    }).
+      when('/display_tag/:tagId', {
+      templateUrl: 'views/display_tag.html',
+      controller: 'TagDisplay'
     }).
     when('/', {
       templateUrl: 'views/todo.html',

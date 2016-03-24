@@ -1,0 +1,32 @@
+<div class="panel panel-default">
+  <div class="panel-heading"><a href="{{articleData.link}}">{{articleData.title}}</a></div>
+    <ul class="list-group">
+    <li class="list-group-item">{{newlyAdded}}</li>
+    <li class="list-group-item">{{listOfSen}}</li>
+    {{dataSenInArticle}}
+     <li class="list-group-item">{{sentencesData}}</li>
+  </ul>
+  <div class="panel-body">
+
+  	<form name="myform" ng-submit="dataSentence(sentence)" novalidate>
+  	<fieldset>
+       <legend>Sentence data</legend>
+      <textarea  type="text" name="name" placeholder="Short sentences"
+      ng-model="sentence.sample" ng-required="true"></textarea>
+      <p class="error validationerror"
+      ng-show="myform.name.$invalid && myform.name.$touched">
+      Must be a long sentences</p>
+
+      <textarea type="text" name="english" placeholder="Full paragraph"
+      ng-model="sentence.para"></textarea>
+      <p class="error validationerror"
+      ng-show="myform.english.$invalid && myform.english.$touched">
+      Must be a full paragraph of the sentence</p>
+    </fieldset>
+    <button type="submit" ng-disabled="myform.$invalid">Submit</button>
+  	</form>
+
+  </div><!--panel body-->
+
+
+</div><!--panel panel-default-->

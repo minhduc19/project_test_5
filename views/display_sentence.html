@@ -1,0 +1,31 @@
+
+
+<div ng-repeat = "sentence in listOfSentence">
+
+ <div class="panel panel-default">
+    <div  data-toggle="collapse" data-target="#{{sentence.key}}" class="panel-heading">{{sentence.sample}}</div>
+      <div id="{{sentence.key}}" class="panel-collapse collapse">
+          <div class="panel-body">{{sentence.para}}</div>
+      </div><!--id="{{sentence.$id}}"-->
+
+        
+<div class="panel-body">
+    <span ng-repeat = "tag in sentence.valueoftag">
+      <a data-target="#{{tag.tagkey}}"  data-toggle="collapse" ng-click= "tagDetail(tag)" ng-class = "tagClass(tag)" >{{tag.name}} </a>
+    </span>
+
+      <span ng-repeat = "tag in sentence.valueoftag" >
+        <ul class="list-group" id="{{tag.tagkey}}" class="collapse" >
+          <li class="list-group-item" ng-show= "tag.show">{{tag.english}}<br> 
+              <a ng-href="#/display_tag/{{tag.tagkey}}"><button class = "btn btn-default">Related<span class="glyphicon glyphicon-chevron-right"></span></button></a>
+
+          </li>
+
+        </ul>
+      </span>
+       
+             
+</div><!--panel body-->
+</div><!--panel panel-default-->
+</div>
+

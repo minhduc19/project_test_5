@@ -1,0 +1,29 @@
+
+
+
+<div ng-repeat = "article in listOfArticle">
+
+<div class="panel panel-default">
+  <div class="panel-heading"><a ng-href="{{article.link}}">{{article.title}}</a></div>
+    <ul class="list-group">
+     <li class="list-group-item">  
+       <a ng-href="#/display_sentence/{{article.key}}"><button class = "btn btn-default">Read this <span class="glyphicon glyphicon-chevron-right"></span></button></a>
+       
+    </li>
+  </ul>
+  <div class="panel-body">
+
+  	<span ng-repeat = "tag in article.tag">
+  		<a data-target="#{{tag.tagkey}}"  data-toggle="collapse" ng-click= "tagDetail(tag)" ng-class = "tagClass(tag)" >{{tag.name}} </a>
+  	</span>
+
+  		<span ng-repeat = "tag in article.tag" >
+			<ul class="list-group" id="{{tag.tagkey}}" class="collapse" >
+				<li class="list-group-item" ng-show= "tag.show">{{tag.english}}</li>
+			</ul>
+  		</span>
+
+  </div><!--panel body-->
+</div><!--panel panel-default-->
+
+</div>

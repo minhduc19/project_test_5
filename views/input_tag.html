@@ -1,1 +1,49 @@
-{{para}}
+<div ng-bind-html="hello"></div>
+
+<section class="card register">
+  <form name="myform"
+    ng-submit="dataTag(tag)"
+    novalidate>
+
+    <div class="textintro">
+      <h1>{{sentenceId}}</h1>
+      
+    </div>
+
+    <fieldset>
+       <legend>Initial data:</legend>
+      <textarea  type="text" name="name" placeholder="Name of the tag"
+      ng-model="tag.name" ng-required="true">
+      </textarea>
+      <p class="error validationerror"
+      ng-show="myform.name.$invalid && myform.name.$touched">
+      Short tag</p>
+
+      <textarea type="text" name="english" placeholder="English definition"
+      ng-model="tag.english">
+      </textarea>
+      <p class="error validationerror"
+      ng-show="myform.english.$invalid && myform.english.$touched">
+      English description</p>
+
+      <div class="formgroup">
+      <span class="label">Order by:</span>
+        <select ng-model="tag.type">
+          <option value="1">Grammar</option>
+          <option value="2">Structure</option>
+          <option value="3">Specification</option>
+        </select>
+    </div>
+
+
+    </fieldset>
+
+<button type="submit"
+    ng-disabled="myform.$invalid">Submit</button>
+
+
+
+
+  </form>
+</section>
+

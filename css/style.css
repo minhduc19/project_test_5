@@ -689,3 +689,19 @@ input.ng-valid.ng-touched {
   color: red;
   padding-bottom: 10px;
 }
+
+.panel {
+  background: white;
+  width: 90%; 
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  opacity: .95;
+  border-radius: 4px;
+  border: 1px solid #e8e8e8;
+  box-shadow: 0 1px 0 rgba(0,0,0,.25);
+}
+
+.panel button {
+   align: center;
+   }
