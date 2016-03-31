@@ -1,5 +1,5 @@
 var myApp = angular.module('myApp',
-  ['ngCookies' ,'ngRoute', 'firebase','ngSanitize'])
+  ['ngCookies' ,'ngRoute', 'firebase','ngSanitize','ui.router'])
   .constant('FIREBASE_URL', 'https://minhduc16.firebaseio.com/');
 
 
