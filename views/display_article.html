@@ -7,18 +7,22 @@
   <div class="panel-heading"><a ng-href="{{article.link}}">{{article.title}}</a></div>
     <ul class="list-group">
      <li class="list-group-item">  
-       <a ng-href="#/display_sentence/{{article.key}}"><button class = "btn btn-default">Read this <span class="glyphicon glyphicon-chevron-right"></span></button></a>
+       <a ng-href="#/display_sentence/{{article.key}}"  target="_self"><button class = "btn btn-default">Read this <span class="glyphicon glyphicon-chevron-right"></span></button></a>
        
     </li>
   </ul>
   <div class="panel-body">
 
-  	<span ng-repeat = "tag in article.tag">
-  		<a data-target="#{{tag.tagkey}}"  data-toggle="collapse" ng-click= "tagDetail(tag)" ng-class = "tagClass(tag)" >{{tag.name}} </a>
+  	<span ng-repeat = "tag in article.tag | orderBy: 'type'" >
+  
+  		<a data-target="#{{tag.tagkey}}{{article.key}}"  data-toggle="collapse" ng-click= "tagDetail(tag)" ng-class = "tagClass(tag)" >{{tag.name}} </a>
+  
+  
+
   	</span>
 
-  		<span ng-repeat = "tag in article.tag" >
-			<ul class="list-group" id="{{tag.tagkey}}" class="collapse" >
+  		<span ng-repeat = "tag in article.tag | orderBy: 'type'" >
+			<ul class="list-group" id="{{tag.tagkey}}{{article.key}}" class="collapse" >
 				<li class="list-group-item" ng-show= "tag.show">{{tag.english}}</li>
 			</ul>
   		</span>
@@ -27,3 +31,7 @@
 </div><!--panel panel-default-->
 
 </div>
+
+<button id="next" ng-click="lessData()" >less </button>
+<button id="next" ng-click="moreData()" >next </button>
+

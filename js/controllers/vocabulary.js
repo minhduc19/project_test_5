@@ -13,10 +13,10 @@ myApp.controller('VocabularyController', ['$scope','$rootScope','$routeParams','
 			var articleRef = new Firebase(FIREBASE_URL + "article/" + articleId );
 			var sentenceRef = new Firebase(FIREBASE_URL + "sentence");
 
-			var testRef = new Firebase(FIREBASE_URL + "sentence/-KDUH7SavWtm3ma1ztl9/tag");
-			$scope.test2 = $firebaseArray(testRef);
+			var writingRef = new Firebase(FIREBASE_URL + "writing");
 
 			var tagRef = new Firebase(FIREBASE_URL + "tag");
+			$scope.listOfTag = $firebaseArray(tagRef);
 
 			$scope.articleData = $firebaseObject(articleRef);
 			$scope.sentencesData = $firebaseArray(sentenceRef);
@@ -24,33 +24,10 @@ myApp.controller('VocabularyController', ['$scope','$rootScope','$routeParams','
 			var senInArticle = new Firebase(FIREBASE_URL + "article/" + articleId + "/sentences");
 			
 				$scope.dataSenInArticle = $firebaseArray(senInArticle);
-			/*	
-			$scope.dataSenInArticle.$loaded(function(){
-				$scope.sentencesData.$loaded(function(){
-					$scope.listOfSen = [];
-					for(i= 0; i < $scope.dataSenInArticle.length; i++){
-						for(j=0; j< $scope.sentencesData.length; j++){
-							if ($scope.dataSenInArticle[i].$value == $scope.sentencesData[j].$id){
-								$scope.listOfSen.push($scope.sentencesData[j]);
-					};//if 
-				};//for j
-				
-			};//for i
-				});//$scope.sentencesData.$loaded
-					
-			});//$scope.dataSenInArticle.$loaded
-			
-			for(i= 0; i < $scope.lengOfSen; i++){
-				for(j=0; j< $scope.lengOfSentences; j++){
-					if ($scope.dataSenInArticle[i].$value == $scope.sentencesData[j].$id)
-						listOfSen.push($scope.sentencesData[j]);
-				};
-			};
-			*/
-			//$scope.result = listOfSen;
 			
 			$scope.dataArticle = function(article) {
 				var articleRef = new Firebase(FIREBASE_URL + "article");
+				article.time = Firebase.ServerValue.TIMESTAMP;
 				articleRef.push(article);
 
 				articleRef.limitToLast(1).once("child_added",function(snapshot,prevChildKey){
@@ -65,10 +42,7 @@ myApp.controller('VocabularyController', ['$scope','$rootScope','$routeParams','
 				sentence.articleId = data;	
 				sentenceRef.push(sentence);
 				sentenceRef.limitToLast(1).once("child_added",function(childSnapshot){
-					//var articleRef = new Firebase(FIREBASE_URL + "article/" + articleId + "/sentences");
 					
-					//$scope.newlyAdded.push(childSnapshot.val());
-					//articleRef.push(childSnapshot.key());
 					$location.path('/input_tag/' + articleId + "/" + childSnapshot.key());
 					//alert("inserted");
 				});
@@ -85,8 +59,7 @@ myApp.controller('VocabularyController', ['$scope','$rootScope','$routeParams','
 					
 					var tagRef = new Firebase(FIREBASE_URL + "tag/" + childSnapshot.key() + "/article");
 					tagRef.child(articleId).set("true");
-					//var data = {};
-					//data[keyValue] = "true";
+					
 					
 					
 					var keyValue = childSnapshot.key()
@@ -95,6 +68,35 @@ myApp.controller('VocabularyController', ['$scope','$rootScope','$routeParams','
 			};
 			$scope.sentenceId = sentenceId;
 
+
+			$scope.updateTag = function(tag){
+			
+				tagRef.child(tag.$id + "/article/" + articleId).set("true");
+				tagRef.child(tag.$id + "/sentence/" + sentenceId).set("true");
+				sentenceRef.child(sentenceId + "/tag/" + tag.$id).set("true");
+				console.log(tag);
+			};
+
+			$scope.detailTag = function(tag){
+				tag.show = !tag.show
+			};
+
+			$scope.dataWriting = function(writing){
+
+				writing.time = Firebase.ServerValue.TIMESTAMP;
+				writingRef.push(writing);
+
+				writingRef.limitToLast(1).once("child_added",function(snapshot,prevChildKey){
+					$location.path('/input_sentence/' + snapshot.key());
+				});
+
+
+			};
+
+
+
+
+			//test dùng cho reference
 			$scope.test = function(){
 				var sample = ["-KDScBMtndWMmzsZygbS","-KDScC_0KpTfhQciTPEd"];
 				var ref = new Firebase(FIREBASE_URL + "tag");
@@ -120,8 +122,9 @@ myApp.controller('VocabularyController', ['$scope','$rootScope','$routeParams','
 					});
 
 				});
-				//console.log(list);
+				
 			};
+
 
 
 	}]); //controller

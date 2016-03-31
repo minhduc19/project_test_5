@@ -19,27 +19,7 @@ myApp.controller('VocabularyDisplay', ['$scope','$rootScope','$routeParams','$fi
 			$scope.articleData = $firebaseArray(articleRef);
 			$scope.dataSenInArticle = $firebaseArray(senInArticle);
 			$scope.sentencesData = $firebaseArray(sentenceRef);
-			//$scope.sentencesData = $firebaseArray(sentenceRef);
-
-			//var senInArticle = new Firebase(FIREBASE_URL + "article/" + articleId + "/sentences");
-			
-			//$scope.dataSenInArticle = $firebaseArray(senInArticle);
-
-			/*
-			$scope.dataSenInArticle.$loaded(function(){
-				$scope.sentencesData.$loaded(function(){
-					$scope.listOfSen = [];
-					for(i= 0; i < $scope.dataSenInArticle.length; i++){
-						for(j=0; j< $scope.sentencesData.length; j++){
-							if ($scope.dataSenInArticle[i].$value == $scope.sentencesData[j].$id){
-								$scope.listOfSen.push($scope.sentencesData[j]);
-								$scope.testList = $scope.sentencesData[j].tag;
-								};//if 
-							};//for j
-						};//for i
-					});//$scope.sentencesData.$loaded
-				});//$scope.dataSenInArticle.$loaded
-			*/
+		
 
 			
 

@@ -1,17 +1,30 @@
-<div ng-bind-html="hello"></div>
+
+{{tagOfSentence}}
+{{listOfSentence.articleId}}
+
+ <div class="panel panel-default">
+    <div  class="panel-heading">{{listOfSentence.sample}}</div>
+    <div class="panel-body">{{listOfSentence.para}}</div>     
+ </div>
+
+
+<section class="card register">
+        <form name = "editform" ng-submit = "editContent(listOfSentence.sample,listOfSentence.para)" novalidate>  
+            <textarea type="text" name = "sample" placeholder="Edit here" ng-model = "listOfSentence.sample" ng-required = "true"></textarea>
+            <textarea type="text" name = "para" placeholder="Edit here" ng-model = "listOfSentence.para" ng-required = "true"></textarea>
+            <button type="submit" class="btn" ng-disabled = "editform.$invalid"> Update </button>
+        </form><!--edit your to-do-->
+</section>
+
+<br>
 
 <section class="card register">
   <form name="myform"
-    ng-submit="dataTag(tag)"
+    ng-submit="dataTag(tag,listOfSentence.articleId)"
     novalidate>
 
-    <div class="textintro">
-      <h1>{{sentenceId}}</h1>
-      
-    </div>
-
     <fieldset>
-       <legend>Initial data:</legend>
+    
       <textarea  type="text" name="name" placeholder="Name of the tag"
       ng-model="tag.name" ng-required="true">
       </textarea>
@@ -52,9 +65,12 @@
 
   <button type="button" class="btn btn-info"  id="right" ng-click = "detailTag(tag)"><span class="glyphicon glyphicon-align-justify"></span> </button>
 
-  <button type="button" class="btn btn-success"  id = "right1" ng-click = "updateTag(tag)"><span class="glyphicon glyphicon-ok"></span></button>
+  <button type="button" class="btn btn-success"  id = "right1" ng-click = "updateTag(tag,listOfSentence.articleId)"><span class="glyphicon glyphicon-ok"></span></button>
   <br>
   <span ng-show= "tag.show">{{tag.english}}</span>
   </a>
 </div>
 
+        
+       
+  

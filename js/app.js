@@ -15,7 +15,14 @@ myApp.run(['$rootScope', '$location',
       }); //event info
   }]); //run
 
-myApp.config(['$routeProvider', function($routeProvider) {
+
+
+
+myApp.config(['$routeProvider','$locationProvider', 
+
+
+ function($routeProvider, $locationProvider) {
+  
   $routeProvider.
     when('/login', {
       templateUrl: 'views/login.html',
@@ -41,6 +48,10 @@ myApp.config(['$routeProvider', function($routeProvider) {
       templateUrl: 'views/display_sentence.html',
       controller: 'SentenceDisplay'
     }).
+     when('/edit_sentence/:sentenceId', {
+      templateUrl: 'views/edit_sentence.html',
+      controller: 'SentenceEdit'
+    }).
       when('/article_display', {
       templateUrl: 'views/display_article.html',
       controller: 'ArticleDisplay'
@@ -49,14 +60,17 @@ myApp.config(['$routeProvider', function($routeProvider) {
       templateUrl: 'views/display_tag.html',
       controller: 'TagDisplay'
     }).
+      when('/writing_display', {
+      templateUrl: 'views/display_writing.html',
+      controller: 'WritingDisplay'
+    }).
+      when('/input_writing', {
+      templateUrl: 'views/input_writing.html',
+      controller: 'VocabularyController'
+    }). 
     when('/', {
-      templateUrl: 'views/todo.html',
-      controller: 'SuccessController',
-      resolve: {
-        currentAuth: function(Authentication) {
-          return Authentication.requireAuth();
-        } //current Auth
-      } //resolve
+      templateUrl: 'views/display_writing.html',
+      controller: 'WritingDisplay'
     }).
     when('/todo', {
       templateUrl: 'views/todo.html',
@@ -70,4 +84,14 @@ myApp.config(['$routeProvider', function($routeProvider) {
     otherwise({
       redirectTo: '/login'
     });
+
+    $routeProvider.
+    
+      when('/writing_display', {
+      templateUrl: 'views/display_writing.html',
+      controller: 'WritingDisplay'
+    });
 }]);
+
+
+

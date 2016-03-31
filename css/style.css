@@ -705,3 +705,30 @@ input.ng-valid.ng-touched {
 .panel button {
    align: center;
    }
+
+#list-group {
+  background: white;
+
+  max-width: 750px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px 40px;
+  text-align: left;
+  position: relative;
+  left: 5px;
+  opacity: .95;
+  
+}
+
+#right { 
+    position: absolute;  top:3px;
+    bottom:3px; right: 10px;
+    height: 37px
+}
+
+#right1 { 
+    position: absolute;  top:3px;
+    bottom:3px; right: 60px;
+    height: 37px
+}
+

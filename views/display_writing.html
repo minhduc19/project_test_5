@@ -1,0 +1,39 @@
+
+<div ng-repeat = "writing in listOfWriting">
+
+<div class="panel panel-default">
+  <div class="panel-heading">{{writing.title}}</div>
+    <ul class="list-group">
+     <li class="list-group-item">  
+       <a ng-href="#/display_sentence/{{writing.key}}"><button class = "btn btn-default">Read this <span class="glyphicon glyphicon-chevron-right"></span></button></a>
+       
+    </li>
+  </ul>
+  <div class="panel-body">
+
+  	<span ng-repeat = "tag in writing.tag | orderBy: 'type'" >
+  
+  		<a data-target="#{{tag.tagkey}}{{writing.key}}"  data-toggle="collapse" ng-click= "tagDetail(tag)" ng-class = "tagClass(tag)" >{{tag.name}} </a>
+  
+  
+
+  	</span>
+
+  		<span ng-repeat = "tag in writing.tag | orderBy: 'type'" >
+			<ul class="list-group" id="{{tag.tagkey}}{{writing.key}}" class="collapse" >
+				<li class="list-group-item" ng-show= "tag.show">{{tag.english}}</li>
+			</ul>
+  		</span>
+
+  </div><!--panel body-->
+</div><!--panel panel-default-->
+
+</div>
+
+<button id="next" ng-click="lessData()" >less </button>
+<button id="next" ng-click="moreData()" >next </button>
+
+</div>
+
+
+

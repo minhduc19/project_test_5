@@ -1,0 +1,33 @@
+
+<section class="card register">
+  <form name="myform"
+    ng-submit="dataWriting(writing)"
+    novalidate>
+
+    <div class="textintro">
+      <h1>Data</h1>
+      
+    </div>
+
+    <fieldset>
+       <legend>Article data:</legend>
+     
+      <input type="text" name="writing" placeholder="topic of the writing"
+      ng-model="writing.title" ng-required="true">
+      <p class="error validationerror"
+      ng-show="myform.writing.$invalid && myform.article.$touched">
+      Must be the topic of the writing</p>
+
+    </fieldset>
+
+<button type="submit" ng-disabled="myform.$invalid">Submit</button>
+
+
+
+
+  </form>
+</section>
+
+
+  
+
