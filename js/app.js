@@ -16,8 +16,6 @@ myApp.run(['$rootScope', '$location',
   }]); //run
 
 
-
-
 myApp.config(['$routeProvider','$locationProvider', 
 
 
@@ -92,6 +90,8 @@ myApp.config(['$routeProvider','$locationProvider',
       controller: 'WritingDisplay'
     });
 }]);
+
+test 
 
 
 
