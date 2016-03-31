@@ -1,5 +1,5 @@
 
-myApp.controller('WritingDisplay', ['$templateCache','$route','$scope','$rootScope','$routeParams','$firebaseAuth',
+writingApp.controller('WritingDisplay', ['$templateCache','$route','$scope','$rootScope','$routeParams','$firebaseAuth',
 					'$firebaseArray','FIREBASE_URL','$firebaseObject','$location',
 	function($templateCache,$route,$scope,$rootScope,$routeParams,$firebaseAuth,$firebaseArray,FIREBASE_URL,$firebaseObject,$location) {
 
