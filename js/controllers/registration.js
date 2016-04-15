@@ -15,4 +15,13 @@ myApp.controller('RegistrationController',
     Authentication.register($scope.user);
   }; // register
 
+
+  $scope.test = {value1 :true};
+  console.log($scope.test);
+
+  $scope.count = 0;
+  $scope.hello = function(){
+    console.log($scope.test);
+    $scope.count++;
+  };
 }]); // Controller

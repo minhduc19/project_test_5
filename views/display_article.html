@@ -1,5 +1,9 @@
 
 
+<button id="next" ng-click="lessData()" ng-disabled="lessDisable" >less </button>
+<button id="next" ng-click="moreData()" ng-disabled="moreDisable" >more </button>
+
+
 
 <div ng-repeat = "article in listOfArticle">
 
@@ -7,8 +11,7 @@
   <div class="panel-heading"><a ng-href="{{article.link}}">{{article.title}}</a></div>
     <ul class="list-group">
      <li class="list-group-item">  
-       <a ng-href="#/display_sentence/{{article.key}}"  target="_self"><button class = "btn btn-default">Read this <span class="glyphicon glyphicon-chevron-right"></span></button></a>
-       
+       <a ng-href="#/display_sentence_article/{{article.key}}"  target="_self"><button class = "btn btn-default">Read this <span class="glyphicon glyphicon-chevron-right"></span></button></a> 
     </li>
   </ul>
   <div class="panel-body">
@@ -32,6 +35,6 @@
 
 </div>
 
-<button id="next" ng-click="lessData()" >less </button>
-<button id="next" ng-click="moreData()" >next </button>
+
+
 

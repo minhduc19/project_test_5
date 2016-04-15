@@ -1,12 +1,15 @@
   <div class="branding"><a ng-href="#/">angularJS</a></div>
   <ul>
-    <li><a ng-show="currentUser" ng-href="#/login">Login</a></li>
-    <li><a ng-show="currentUser" ng-href="#/register">Register</a></li>
+  
+ 
+   <li><a ng-show = "currentUser" ui-sref = "practice" >Practice</a></li>   
+     <li><a ui-sref = "article" >News</a></li>
+    <li><a ui-sref = "writing" >Writing</a></li> 
+
+    <li><a ng-hide = "currentUser" ui-sref = "login" >Login</a></li> 
+    <li><a ng-hide = "currentUser" ui-sref = "register" >Register</a></li>
     
-    <li><a ng-href="#/tag_display" target="_self">Tags</a></li>
-    <li><a ng-href="#/speaking_display" target="_self">Speaking</a></li>
-     <li><a ng-href="#/article_display" target="_self">News</a></li>
-    <li><a ng-href="#/writing_display" target="_self">Writing</a></li>  
+      
    
     
  

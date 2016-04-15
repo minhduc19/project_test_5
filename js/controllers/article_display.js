@@ -1,6 +1,3 @@
-
-
-
 myApp.controller('ArticleDisplay', ['$scope','$rootScope','$routeParams','$firebaseAuth',
 					'$firebaseArray','FIREBASE_URL','$firebaseObject','$location',
 	function($scope,$rootScope,$routeParams,$firebaseAuth,$firebaseArray,FIREBASE_URL,$firebaseObject,$location) {
@@ -9,7 +6,6 @@ myApp.controller('ArticleDisplay', ['$scope','$rootScope','$routeParams','$fireb
 		var auth = $firebaseAuth(ref);	
 			var articleId =  $routeParams.articleId;
 			var sentenceId =  $routeParams.sentenceId;
-
 			var articleRef = new Firebase(FIREBASE_URL + "article");
 			var writingRef = new Firebase(FIREBASE_URL + "writing");
 			 
@@ -19,19 +15,36 @@ myApp.controller('ArticleDisplay', ['$scope','$rootScope','$routeParams','$fireb
 			var sentenceRef = new Firebase(FIREBASE_URL + "sentence");
 			var tagRef = new Firebase(FIREBASE_URL + "tag");
 
-			$scope.articleData = $firebaseArray(articleRef);
+			var articleData = $firebaseArray(articleRef);
 			$scope.dataSenInArticle = $firebaseArray(senInArticle);
 			$scope.sentencesData = $firebaseArray(sentenceRef);
 			$scope.tagData = $firebaseArray(tagRef);
 
 			var number = 2;
 
-			function loadPages(addNumber){ //function để dùng cho pagination dạng đơn giản 
+			articleData.$loaded(function(){
+				$scope.len = 0;
+				for(i=0;i<articleData.length;i++){
+					$scope.len ++;
+				};
+			});
+
+			function loadPages(addNumber){ 
 				this.addNumber = addNumber;
 				number = number + addNumber;
+				if(number <= 2){
+					$scope.lessDisable = true;
+					$scope.moreDisable = false;
+				}else if(number > 2 && number < $scope.len){
+					$scope.moreDisable = false;
+					$scope.lessDisable = false;
+				}else {
+					$scope.moreDisable = true;
+					$scope.lessDisable = false;
+				};
 
 				$scope.listOfArticle = [];
-					articleRef.orderByChild('time').limitToFirst(number).on('child_added',function(snapshot){
+					articleRef.orderByChild('time').limitToLast(number).on('child_added',function(snapshot){
 					var key = snapshot.key();
 					var article = snapshot.val();
 				
@@ -59,8 +72,8 @@ myApp.controller('ArticleDisplay', ['$scope','$rootScope','$routeParams','$fireb
 
 
 
-			$scope.moreData = function (){
 
+			$scope.moreData = function (){
 			 	 new loadPages(2);
 
 			};
@@ -68,6 +81,7 @@ myApp.controller('ArticleDisplay', ['$scope','$rootScope','$routeParams','$fireb
 			$scope.lessData = function (){
 			 	 new loadPages(-2);
 			};
+
 				new loadPages(0);
 
 

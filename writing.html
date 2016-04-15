@@ -1,10 +1,12 @@
 <!doctype html>
-<html lang="en" ng-app="myApp">
+<html lang="en" ng-app="writingApp">
 <head>
-
+ 
   <meta charset="UTF-8">
   <title>Angular Data</title>
   <meta name="viewport" content="width=device-width, user-scalable=no">
+
+
 
   <link rel="stylesheet" href="css/style.css">
 
@@ -15,22 +17,19 @@
   
   <script src="js/lib/angular/angular.min.js"></script>
 
-
-
-
   <script src="js/angular-sanitize.min.js"></script>
   <script src="js/lib/angular/angular-route.min.js"></script>
   <script src="js/lib/angular/angular-animate.min.js"></script>
    <script src="js/lib/angular/angular-cookies.min.js"></script>
-     <script src="js/lib/angular/angular-ui-router.js"></script>
+      <script src="js/lib/angular/angular-ui-router.js"></script>
 
   <!-- Firebase -->
 <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
 <!-- AngularFire -->
 <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
 
-
-   <script src="js/app.js"></script>
+  <script src="js/writing.js"></script>
+  <script src="js/app.js"></script>
   <script src="js/services/authentication.js"></script>
   <script src="js/controllers/registration.js"></script>
   <script src="js/controllers/todo.js"></script>
@@ -44,7 +43,6 @@
   <script src="js/controllers/tag_display.js"></script>
 
    <script src="js/controllers/edit_sentence.js"></script>
-    <script src="js/controllers/sentence_article_display.js"></script>
     
 
 
@@ -57,12 +55,9 @@
 </header>
 <div class="page">
 
-  <div class="userinfo" ng-show="currentUser" ng-controller="RegistrationController">
-    <span class="userinfo">Hi {{currentUser.firstname}}</span> 
-    <a ng-href="#/todo" ng-click="logout()">logout</a>
-  </div>
 
-  <div id="content" ui-view></div>
+
+<div id="content" ui-view></div>
 </div>
 </body>
 </html>

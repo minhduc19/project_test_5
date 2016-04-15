@@ -19,10 +19,7 @@ myApp.controller('VocabularyDisplay', ['$scope','$rootScope','$routeParams','$fi
 			$scope.articleData = $firebaseArray(articleRef);
 			$scope.dataSenInArticle = $firebaseArray(senInArticle);
 			$scope.sentencesData = $firebaseArray(sentenceRef);
-		
-
 			
-
 					$scope.listOfSen = [];
 					$scope.dataSenInArticle.$loaded(function(){
 					for (i = 0; i < $scope.dataSenInArticle.length; i++) {
