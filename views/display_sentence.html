@@ -1,5 +1,12 @@
+{{paraList}}
+<script>
+ $(function () {
+                $("#dismiss").on('click', function() {
+                    $('#myModal').modal('hide');
+                });
+            });
+</script>
 
-hello
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -18,14 +25,14 @@ hello
         
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click = "return()">Return</button>
-        <button type="submit" class="btn btn-default"  ng-disabled="myform.$invalid">Save changes</button>
+        <button type="submit" class="btn btn-default" id="dismiss" ng-disabled="myform.$invalid">Save changes</button>
       </div>
       </div>
       </form>
     </div>
   </div>
 </div>
-<!-- test modal -->
+<!-- test modal --> 
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" data-target="#home">Sentence</a></li>
     <li><a data-toggle="tab" data-target="#menu1">Paragraph</a></li>
@@ -36,10 +43,12 @@ hello
   <div class="tab-content">
        <br>
        <h4 ng-if="gone">Your practice is on progress {{completion}}%</h4>
-       
-      <button ng-if="showSave" class="btn btn-primary btn-sm" ng-click = "Savedata(sentence)" data-toggle="modal" data-target="#myModal">
+       <div ng-controller = "userSave">
+       <!-- ng-if="showSave" -->
+      <button  class="btn btn-primary btn-sm" ng-click = "saveWriting(paraList)">
           Save
       </button> 
+      </div>
       
        <h4 ng-if="madeId">CONGRATULATION YOU MADE IT :))</h4>
   <div class="progress" style="height: 15px;">
@@ -54,7 +63,9 @@ hello
      <div ng-repeat = "para in paraList">
      <div ng-repeat = "sentence in para">
  <div class="panel panel-default" ng-class= "{'panel panel-danger' : $first}">
-    <div ng-hide="sentence.hideEnglish"  data-toggle="collapse" data-target="#{{sentence.key}}" class="panel-heading">{{sentence.sample}}
+    <div ng-hide="sentence.hideEnglish"  data-toggle="collapse" data-target="#{{sentence.key}}" class="panel-heading">
+        <div ng-if="sentence.practice" class="  glyphicon glyphicon-bookmark"></div>
+        {{sentence.sample}}
     </div>
 
       <div id="{{sentence.key}}" class="panel-collapse collapse">
@@ -63,7 +74,7 @@ hello
       </div><!--id="{{sentence.$id}}"-->
     
         
-<div class="panel-body">
+    <div class="panel-body">
 
     <span ng-repeat = "tag in sentence.tag | orderBy: 'type'">
 
@@ -73,22 +84,20 @@ hello
 
       <div ng-repeat = "tag in sentence.tag | orderBy: 'type'" >
         <ul class="list-group" id="{{sentence.key}}{{tag.tagkey}}" class="collapse" >
-          <li class="list-group-item" ng-show= "tag.show">{{tag.english}}<br> 
+          <li class="list-group-item" ng-if= "tag.show">{{tag.english}}<br> 
               <a ng-href="#/tag/{{tag.tagkey}}"><button class = "btn btn-default">Related<span class="glyphicon glyphicon-chevron-right"></span></button></a>
           </li>
 
         </ul>
       </div>
-       <div>
+      </div><!--panel body-->
+
+       <div class="panel-footer">
       <button type="button" class="btn btn-primary btn-sm" ng-click = "data(sentence)" data-toggle="modal" data-target="#myModal">
           Practice
       </button> 
       </div>
-
-
-
-
-</div><!--panel body-->
+    
 </div><!--panel panel-default-->
 </div>
 

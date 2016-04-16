@@ -9,11 +9,12 @@ myApp.run(['$rootScope', '$location',
     $rootScope.$on('$routeChangeError',
       function(event, next, previous, error) {
         if (error=='AUTH_REQUIRED') {
-          //$rootScope.message = 'Sorry, you must log in to access that page';
+          $rootScope.message = 'Sorry, you must log in to access that page';
           $location.path('/login');
         } // AUTH REQUIRED
       }); //event info
   }]); //run
+
 
 myApp.service('sendData', function() {
   var list = [];
@@ -35,6 +36,9 @@ myApp.service('sendData', function() {
 
 
 
+
+
+
 myApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
  
@@ -52,7 +56,12 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $
          .state('sentence', {
             url:'/display_sentence/:articleId',
             templateUrl: 'views/display_sentence.html',
-            controller: 'SentenceDisplay'
+            controller: 'SentenceDisplay',
+            // resolve: {
+            //     currentAuth: function(Authentication) {
+            //       return Authentication.requireAuth();
+            //     } //current Auth
+            //   } //resolve
         })
          .state('sentence_article', {
             url:'/display_sentence_article/:articleId',
@@ -78,6 +87,11 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $
             url:'/register',
             templateUrl: 'views/register.html',
             controller: 'RegistrationController'
+        })
+          .state('profile', {
+            url:'/profile',
+            templateUrl: 'views/user_profile.html',
+            controller: 'userDisplay'
         })
 }]);
 

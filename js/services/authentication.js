@@ -11,7 +11,9 @@ myApp.factory('Authentication',
     if (authUser) {
       var userRef = new Firebase(FIREBASE_URL + 'users/' + authUser.uid );
       var userObj = $firebaseObject(userRef);
-      $rootScope.currentUser = userObj;
+        userObj.$loaded(function(){
+          $rootScope.currentUser = userObj;
+        });
     } else {
       $rootScope.currentUser = '';
     }
@@ -36,6 +38,7 @@ myApp.factory('Authentication',
 
     requireAuth: function() {
       return auth.$requireAuth();
+     
     }, //require Authentication
 
     register: function(user) {

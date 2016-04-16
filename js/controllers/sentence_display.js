@@ -3,9 +3,9 @@ myApp.controller('SentenceDisplay', ['$scope','$rootScope','$stateParams','$fire
 					'$firebaseArray','FIREBASE_URL','$firebaseObject','$location','sendData',
 	function($scope,$rootScope,$stateParams,$firebaseAuth,$firebaseArray,FIREBASE_URL,$firebaseObject,$location,sendData) {
 			
-			//sendData.addList("hello");
 
 
+	
 			var articleId = $stateParams.articleId;
 
 			var articleRef = new Firebase(FIREBASE_URL + "article");
@@ -86,7 +86,8 @@ myApp.controller('SentenceDisplay', ['$scope','$rootScope','$stateParams','$fire
 			$scope.prac = 0;
 			$scope.gone = true;
 			$scope.practiceSentence = function(practiceSen){
-			
+				
+
 				if($scope.test.practice != null){
 					$scope.test.practice = practiceSen;					
 				}else{
@@ -99,7 +100,13 @@ myApp.controller('SentenceDisplay', ['$scope','$rootScope','$stateParams','$fire
 						$scope.madeId = true;
 						$scope.gone = false;
 					};
-					
+				$scope.test.hideEnglish = false;
+				 //var result = document.getElementById("dismiss");
+				  // var angularResult = angular.element("myModal");
+				 	// angularResult.modal('hide');
+				 	// console.log(angularResult);
+
+					 
 			};
 
 			$scope.$watch('completion',function(){

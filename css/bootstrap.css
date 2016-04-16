@@ -397,6 +397,7 @@ th {
   content: "\e033";
 }
 .glyphicon-flag:before {
+  color: red;
   content: "\e034";
 }
 .glyphicon-headphones:before {

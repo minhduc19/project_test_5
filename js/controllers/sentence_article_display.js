@@ -88,6 +88,7 @@ myApp.controller('SentenceArticleDisplay', ['$scope','$rootScope','$stateParams'
 						$scope.madeId = true;
 						$scope.gone = false;
 					};
+				$scope.test.hideEnglish = false;
 					
 			};
 
@@ -108,15 +109,15 @@ myApp.controller('SentenceArticleDisplay', ['$scope','$rootScope','$stateParams'
 			$scope.tagClass = function (tag){
 				if(tag.display == null || tag.display == false)
 				{
-				if (tag.type ==  1) {
-					tag.class = "btn btn-danger";
-					} else if (tag.type == 2) {
-					tag.class = "btn btn-warning";
+					if (tag.type ==  1) {
+						tag.class = "btn btn-danger";
+						} else if (tag.type == 2) {
+						tag.class = "btn btn-warning";
+						} else {
+						tag.class = "btn btn-info";
+						};
 					} else {
-					tag.class = "btn btn-info";
-					};
-				} else {
-					tag.class = "btn btn-default";
+						tag.class = "btn btn-default";
 				}
 				return tag.class;
 			};		

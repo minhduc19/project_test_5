@@ -55,7 +55,8 @@ myApp.controller('WritingDisplay', ['$templateCache','$route','$scope','$rootSco
 					//console.log(snapshot.val());
 					var key = snapshot.key();
 					var article = snapshot.val();
-				
+					article.articleKey = key;
+
 					var tagInArticle = [];
 					tagRef.on('child_added',function(snapshot){
 					var value = snapshot.val();
@@ -71,7 +72,7 @@ myApp.controller('WritingDisplay', ['$templateCache','$route','$scope','$rootSco
 						});
 					});
 					article.tag = tagInArticle;
-					article.key = key;
+					
 					$scope.listOfWriting.push(article);
 					return $scope.listOfWriting;
 
