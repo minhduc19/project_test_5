@@ -46,8 +46,9 @@
    <script src="js/controllers/edit_sentence.js"></script>
     <script src="js/controllers/sentence_article_display.js"></script>
     <script src="js/controllers/userSave.js"></script>
-    <script src="js/controllers/userDisplay.js"></script>
     
+    <script src="js/controllers/userDisplayWriting.js"></script>
+    <script src="js/controllers/userDisplayArticle.js"></script>
 
 
 
@@ -60,7 +61,7 @@
 <div class="page">
 
   <div class="userinfo" ng-show="currentUser" ng-controller="RegistrationController">
-    <a ui-sref = "profile" class="userinfo">Hi {{currentUser.firstname}}</a> 
+    <a ui-sref = "profile.writing" class="userinfo">Hi {{currentUser.firstname}}</a> 
     <a ng-href="#/todo" ng-click="logout()">logout</a>
   </div>
 

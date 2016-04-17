@@ -88,14 +88,39 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $
             templateUrl: 'views/register.html',
             controller: 'RegistrationController'
         })
-          .state('profile', {
-            url:'/profile',
-            templateUrl: 'views/user_profile.html',
-            controller: 'userDisplay'
-        })
+          .state('profile',{
+            //abstract: true,
+            url: '/profile',
+            templateUrl: 'views/user_profile.html'
+          }).
+          state('profile.writing',{
+            url: '/writing',
+            templateUrl : 'views/user_profile_writing.html',
+            controller: 'userDisplayWriting'
+          }).
+          state('profile.article',{
+            url: '/article/:articleId',
+            templateUrl : 'views/user_profile_article.html',
+            controller: 'userDisplayArticle'
+          })
+        
 }]);
 
-
+        //   .state('profile', {
+        //     views:{
+        //     'writing':{
+        //     url:'/profile',
+        //     templateUrl: 'views/user_profile.html',
+        //     controller: 'userDisplay'
+        //   },
+        //     'article':
+        //   {
+        //     url:'/profileArticle',
+        //     templateUrl: 'views/user_profile_article.html',
+        //     controller: 'userDisplayArticle'
+        //   }
+        // }
+        // })
 
 
 
