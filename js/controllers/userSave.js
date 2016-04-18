@@ -22,6 +22,7 @@ myApp.controller('userSave', ['$scope','$rootScope','$stateParams','$firebaseAut
 
 				$scope.saveWriting = function(paraList){
 					//userRef.child(currentUser.uid + "/article/" + articleId).set(true);
+					writingRef.child(articleId + "/userPractice/" + currentUser.uid).set(true);
 					articleUser.child(currentUser.uid + "/" + articleId + "/time").set(Firebase.ServerValue.TIMESTAMP);
 					var paraLen = paraList.length;
 					for(i = 0; i < paraLen; i++){
