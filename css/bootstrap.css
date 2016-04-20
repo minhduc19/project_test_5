@@ -5949,6 +5949,8 @@ button.close {
 .modal-body {
   position: relative;
   padding: 15px;
+  max-height: calc(100vh - 210px);
+  overflow-y: auto;
 }
 .modal-footer {
   padding: 15px;

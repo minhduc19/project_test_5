@@ -17,54 +17,59 @@ myApp.controller('userDisplayWriting', ['$scope','$rootScope','$stateParams','$f
 
 		var articleUserList = new Firebase(FIREBASE_URL + "userArticle/")
 		var articleUserListArr = new $firebaseArray(articleUserList);
-		//console.log(articleUserListObj);
 
 		var articleUser = new Firebase(FIREBASE_URL + "userArticle/" + currentUser.uid)
 		var articleUserObject = $firebaseObject(articleUser);
 
-
-
-		var tagRef = new Firebase(FIREBASE_URL + "tag/")
+		var tagRef = new Firebase(FIREBASE_URL + "tag/");
+		var tagObj = $firebaseObject(tagRef);
 
 		var userRef = new Firebase(FIREBASE_URL + "users/");
 		
-	   
-		//$scope.test = "test";
-		
+
 		articleUserObject.$watch(function(){
 		$scope.writingList = [];
-		
-		//articleUserListArr.$loaded(function(){
 		
 		writingRef.on("child_added",function(snapshot){
 			var writingKey = snapshot.key();
 			var writingVal = snapshot.val();
-			
-			articleUser.child(writingKey).orderByChild('time').limitToLast(2).once("value",function(snapshot){
+			tagObj.$loaded(function(){
+			articleUser.child(writingKey).once("value",function(snapshot){
 				if(snapshot.val() !== null){
+					userValue = snapshot.val();
+					writingVal.key = snapshot.key();
+					writingVal.time = userValue.time;
+					writingVal.userNumb = Object.keys(writingVal.userPractice).length;
 					var articleKey = snapshot.key();
+					var gram = 0; 
+					var structure = 0;
+					var spec = 0;
 					tagRef.on("child_added",function(snapshot){
 						var tagKey = snapshot.key();
 						var keyValue = snapshot.val();
 						tagRef.child(tagKey + "/article/" + articleKey).once("value",function(snapshot){
 							var articleTagValue = snapshot.val();
 							if(articleTagValue !== null){
-								console.log(articleTagValue);
-								//console.log(keyValue.type);
-								// if(keyValue.type == 2){
-								// 	console.log("structure");
-								// };
+								if(keyValue.type == 1){
+									gram++;
+								}else if(keyValue.type == 2){
+									structure++;
+								}else{
+									spec++;
+								};//else
 							};
-						})
+						});				
 					});
-					//console.log()
+					writingVal.grammar = gram;
+					writingVal.structure = structure;
+					writingVal.spec = spec;
 					$scope.writingList.push(writingVal);
 				}; // if 
-
+				});//tagobj loaded
 			});
 		});
-	//});//articleUserArray $loaded
+
 	});//watch
-//});//writingObj loaded
+
 
 	}]); //controller

@@ -1,4 +1,5 @@
 
+
 <script>
  $(function () {
                 $("#dismiss").on('click', function() {
@@ -22,9 +23,8 @@
           <textarea type="text" name="name" placeholder="Short sentences" ng-model="praticeSen" ng-required="true">
           </textarea>
         
-        
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click = "return()">Return</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Return</button>
         <button type="submit" class="btn btn-default" id="dismiss" ng-disabled="myform.$invalid">Save changes</button>
       </div>
       </div>
@@ -33,6 +33,39 @@
   </div>
 </div>
 <!-- test modal --> 
+<div class="modal fade" id="practiceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+       
+        <h5 class="modal-title" id="myModalLabel">Practice History</h5>
+      </div>
+      <div class="modal-body">
+      
+      <table class="table table-hover">
+  		 <thead>
+	      <tr>
+	        <th>Time</th>
+	        <th>Content</th>      
+	      </tr>
+	    </thead>
+		  <tr ng-repeat="practice in history |  orderBy : time: true">
+		    <td>{{ practice.time | date:"MM/dd/yyyy 'at' h:mm"}}</td>
+		    <td>{{ practice.practice }}</td>
+		  </tr>
+	   </table>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Return</button>
+      </div>
+      
+      
+    </div>
+  </div>
+</div>
+<!-- pratice sentence modal --> 
+
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" data-target="#home">Sentence</a></li>
     <li><a data-toggle="tab" data-target="#menu1">Paragraph</a></li>
@@ -43,8 +76,8 @@
   <div class="tab-content">
        <br>
        <h4 ng-if="gone">Your practice is on progress {{completion}}%</h4>
-       <div ng-controller = "userSave">
-       <!-- ng-if="showSave" -->
+       <div  ng-if="showSave" ng-controller = "userSave">
+    
       <button  class="btn btn-primary btn-sm" ng-click = "saveWriting(paraList)">
           Save
       </button> 
@@ -95,6 +128,10 @@
        <div class="panel-footer">
       <button type="button" class="btn btn-primary btn-sm" ng-click = "data(sentence)" data-toggle="modal" data-target="#myModal">
           Practice
+      </button> 
+
+      <button type="button" class="btn btn-primary btn-sm" ng-click = "practiceHistory(sentence.key)" data-toggle="modal" data-target="#practiceModal">
+          History
       </button> 
       </div>
     

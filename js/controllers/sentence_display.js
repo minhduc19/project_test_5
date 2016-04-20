@@ -2,10 +2,12 @@
 myApp.controller('SentenceDisplay', ['$scope','$rootScope','$stateParams','$firebaseAuth',
 					'$firebaseArray','FIREBASE_URL','$firebaseObject','$location','sendData',
 	function($scope,$rootScope,$stateParams,$firebaseAuth,$firebaseArray,FIREBASE_URL,$firebaseObject,$location,sendData) {
+			var ref = new Firebase(FIREBASE_URL);
+			var authData = ref.getAuth();
+			if (authData) {
+			  var currentUser = authData;
+			};
 			
-
-
-	
 			var articleId = $stateParams.articleId;
 
 			var articleRef = new Firebase(FIREBASE_URL + "article");
@@ -145,5 +147,46 @@ myApp.controller('SentenceDisplay', ['$scope','$rootScope','$stateParams','$fire
 						tag.class = "btn btn-default";
 				};
 				return tag.class;
-			};		
+			};	
+
+			//code dành cho phần practice
+			$scope.historyList = "Please Wait";
+
+			var userPracRef = new Firebase(FIREBASE_URL + "userPractice/" + currentUser.uid);
+			var userPracObject = $firebaseObject(userPracRef);
+			
+			$scope.practiceHistory = function(sentenceKey){
+				//userPracObject.$watch(function(){
+				userPracObject.$loaded(function(){
+					$scope.history = [];			
+					userPracRef.on("child_added",function(practiceData){
+						//console.log(practiceData);
+						userPracRef.child(practiceData.key() + "/" + sentenceKey).on("value",function(practiceValue){
+
+							if(practiceValue.val() !== null){
+								$scope.history.push(practiceData.val());
+								
+							};
+						});
+					});//loaded
+				//})//watch
+			});
+
+				//console.log(sentenceKey);
+
+			// 
+			// 					$scope.historyList =$scope.history;
+			// 					console.log(value1);
+			// 					console.log(value);
+			// 					//console.log(value1);
+
+			// 					
+			};
+			//console.log($scope.history);
+
+			
+			// $scope.history.$watch(function(){
+			// 	$scope.historyList = history;
+			// });
+			
 	}]); //controller

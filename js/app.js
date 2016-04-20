@@ -40,7 +40,7 @@ myApp.service('sendData', function() {
 
 
 myApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/');
+    //$urlRouterProvider.otherwise('/');
  
     $stateProvider
         .state('article', {
@@ -95,13 +95,25 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $
           }).
           state('profile.writing',{
             url: '/writing',
-            templateUrl : 'views/user_profile_writing1112.html',
+            templateUrl : 'views/user_profile_writing13.html',
             controller: 'userDisplayWriting'
           }).
           state('profile.article',{
-            url: '/article/:articleId',
+            url: '/article',
             templateUrl : 'views/user_profile_article.html',
             controller: 'userDisplayArticle'
+          })
+          .
+          state('practiceWriting',{
+            url: '/profile/writing/:articleId',
+            templateUrl : 'views/user_practice_writing.html',
+            controller: 'SentenceDisplay'
+          })
+          .
+          state('praticeArticle',{
+            url: '/profile/writing/:articleId',
+            templateUrl : 'views/user_practice_writing.html',
+            controller: 'userPracticeArticle'
           })
         
 }]);
