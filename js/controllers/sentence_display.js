@@ -33,20 +33,14 @@ myApp.controller('SentenceDisplay', ['$scope','$rootScope','$stateParams','$fire
 					var paraValue = snapshot.val();
 					writingParaRef.child(paraKey + "/article/" + articleId).on("value",function(snapshot){
 						if(snapshot.val()!==null){
-							
-							//writingSenObj.$loaded(function(){
 							$scope.senList = [];
 							writingSenRef.on("child_added",function(snapshot){
 								var sentenceKey = snapshot.key();
-
 								var sentenceValue = snapshot.val();
 								sentenceValue.key = sentenceKey;
 								
-								writingSenRef.child(sentenceKey + "/para/" + paraKey).on("value",function(snapshot){
-									
+								writingSenRef.child(sentenceKey + "/para/" + paraKey).on("value",function(snapshot){	
 									if(snapshot.val() !== null){
-										
-										//tagObj.$loaded(function(){
 										$scope.listOfTag = [];
 										tagRef.on("child_added",function(snapshot){
 											var tagKey = snapshot.key();
@@ -56,22 +50,16 @@ myApp.controller('SentenceDisplay', ['$scope','$rootScope','$stateParams','$fire
 											tagRef.child(tagKey + "/sentence/" + sentenceKey).on("value",function(snapshot){
 												if(snapshot.val() !== null){
 													$scope.listOfTag.push(tagValue);
-												}
-												
+												}		
 											})
-
 										});
 										sentenceValue.tag = $scope.listOfTag;
-									//});//tagObj 
-										
 										$scope.senList.push(sentenceValue);
 										$scope.len++;
 									}
 								})
 							});
-	
 							$scope.paraList.push($scope.senList);
-							//});
 						}//if
 					});
 				});
@@ -102,13 +90,7 @@ myApp.controller('SentenceDisplay', ['$scope','$rootScope','$stateParams','$fire
 						$scope.madeId = true;
 						$scope.gone = false;
 					};
-				$scope.test.hideEnglish = false;
-				 //var result = document.getElementById("dismiss");
-				  // var angularResult = angular.element("myModal");
-				 	// angularResult.modal('hide');
-				 	// console.log(angularResult);
-
-					 
+				$scope.test.hideEnglish = false;				 
 			};
 
 			$scope.$watch('completion',function(){
@@ -156,37 +138,38 @@ myApp.controller('SentenceDisplay', ['$scope','$rootScope','$stateParams','$fire
 			var userPracObject = $firebaseObject(userPracRef);
 			
 			$scope.practiceHistory = function(sentenceKey){
-				//userPracObject.$watch(function(){
 				userPracObject.$loaded(function(){
 					$scope.history = [];			
 					userPracRef.on("child_added",function(practiceData){
-						//console.log(practiceData);
-						userPracRef.child(practiceData.key() + "/" + sentenceKey).on("value",function(practiceValue){
 
+						userPracRef.child(practiceData.key() + "/" + sentenceKey).once("value",function(practiceValue){
 							if(practiceValue.val() !== null){
-								$scope.history.push(practiceData.val());
-								
+								$scope.history.push(practiceData.val());	
 							};
 						});
 					});//loaded
-				//})//watch
-			});
-
-				//console.log(sentenceKey);
-
-			// 
-			// 					$scope.historyList =$scope.history;
-			// 					console.log(value1);
-			// 					console.log(value);
-			// 					//console.log(value1);
-
-			// 					
+				});
 			};
-			//console.log($scope.history);
 
-			
-			// $scope.history.$watch(function(){
-			// 	$scope.historyList = history;
-			// });
+			$scope.latestHistory = function(){
+				$scope.paraList = [];
+				writingParaRef.on("child_added",function(snapshot){
+					var paraKey =snapshot.key();
+					var paraValue = snapshot.val();
+					writingParaRef.child(paraKey + "/article/" + articleId).on("value",function(sentenceData){
+						if(snapshot.val()!==null){
+							$scope.senList = [];
+							userPracRef.orderByChild("time").on("child_added",function(practiceData){
+								userPracRef.child(sentenceData.key() + "/" + sentenceData.key()).on("value",function(practiceValue){
+									if(practiceValue.val() !== null){
+									console.log(practiceValue.val());
+									};
+								});
+							});						
+						}//if
+					});
+				});
+			}//latestHistory
+
 			
 	}]); //controller

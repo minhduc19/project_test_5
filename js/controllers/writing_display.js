@@ -27,9 +27,6 @@ myApp.controller('WritingDisplay', ['$templateCache','$route','$scope','$rootSco
 		
 			writingData.$loaded(function(){
 				$scope.len = writingData.length;
-				// for(i=0;i<=articleData.length;i++){
-				// 	$scope.len ++;
-				// };
 			});
 			var number = 2;
 			function loadWriting(testNumber){ //function để dùng cho pagination dạng đơn giản 

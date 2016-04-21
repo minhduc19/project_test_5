@@ -24,7 +24,7 @@
           </textarea>
         
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Return</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click = "return()">Return</button>
         <button type="submit" class="btn btn-default" id="dismiss" ng-disabled="myform.$invalid">Save changes</button>
       </div>
       </div>
@@ -68,28 +68,26 @@
 
 <ul class="nav nav-tabs">
     <li class="active"><a data-toggle="tab" data-target="#home">Sentence</a></li>
-    <li><a data-toggle="tab" data-target="#menu1">Paragraph</a></li>
-
-   
-  </ul>
+    <li><a data-toggle="tab" data-target="#menu1">Practice</a></li>
+    <li><a data-toggle="tab" data-target="#menu2" ng-click = "latestHistory()">Latest</a></li>  
+</ul>
 
   <div class="tab-content">
        <br>
        <h4 ng-if="gone">Your practice is on progress {{completion}}%</h4>
        <div  ng-if="showSave" ng-controller = "userSave">
-    
-      <button  class="btn btn-primary btn-sm" ng-click = "saveWriting(paraList)">
-          Save
-      </button> 
-      </div>
+        <button  class="btn btn-primary btn-sm" ng-click = "saveWriting(paraList)">
+            Save
+        </button> 
+        </div>
       
        <h4 ng-if="madeId">CONGRATULATION YOU MADE IT :))</h4>
-  <div class="progress" style="height: 15px;">
-  <div class="progress-bar" role="progressbar" aria-valuenow="70"
-  aria-valuemin="0" aria-valuemax="100" style="width:{{completion}}%">
-  </div>
-
-</div>
+      <div class="progress" style="height: 15px;">
+      <div class="progress-bar" role="progressbar" aria-valuenow="70"
+      aria-valuemin="0" aria-valuemax="100" style="width:{{completion}}%">
+      </div>
+      </div>
+    
     <div id="home" class="tab-pane fade in active"> <!--start of tab 1-->
   
 
@@ -139,30 +137,45 @@
 </div>
 
   </div>
+
     </div><!--finish of tab 1-->
-    <div id="menu1" class="tab-pane fade">
+
+    <div id="menu1" class="tab-pane fade"><!--start of menu1-->
       <br>
       <div ng-repeat="para in paraList">
-
          <div class="panel panel-default">
-          <div class="panel-body">
-                 <b>Your parapraph: </b><span ng-repeat = "sentence in para">{{sentence.practice}}. </span>
-          </div>
+            <div class="panel-body">
+                   <b>Your parapraph: </b><span ng-repeat = "sentence in para">{{sentence.practice}}. </span>
+            </div>
         </div>
 
         <div class="panel panel-default">
-          <div class="panel-body">
-                 <span ng-repeat = "sentence in para">{{sentence.sample}}. </span>
-          </div>
+            <div class="panel-body">
+                   <span ng-repeat = "sentence in para">{{sentence.sample}}. </span>
+            </div>
         </div>
- 
-
       </div>
+    </div><!--finish of menu1-->
+
+
+    <div id="menu2" class="tab-pane fade"> <!--start of menu2-->
+          <br>
+      <div ng-repeat="para in paraList">
+         <div class="panel panel-default">
+            <div class="panel-body">
+              <span ng-repeat = "sentence in para">{{sentence.latestPractice}}. </span>
+            </div>
+      </div>       
+
+    </div><!--finish of menu2-->
+
     </div>
-   
-  
   </div>
+
+
 </div>
+
+
 
 
 

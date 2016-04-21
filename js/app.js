@@ -107,7 +107,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $
           state('practiceWriting',{
             url: '/profile/writing/:articleId',
             templateUrl : 'views/user_practice_writing.html',
-            controller: 'SentenceDisplay'
+            controller: 'userPracticeWriting'
           })
           .
           state('praticeArticle',{
