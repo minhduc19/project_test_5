@@ -81,6 +81,31 @@ myApp.controller('userPracticeWriting', ['$scope','$rootScope','$stateParams','$
 			};
 
 
+			function  loadTag(tagId){
+				$scope.listOfSentence = [];
+				sentenceRef.on('child_added',function(snapshot){
+					var key = snapshot.key();
+					var sentence = snapshot.val();
+					sentenceRef.child(key + "/tag/" + tagId).on('value',function(snapshot){
+						if(snapshot.val() !== null){
+							$scope.listOfSentence.push(sentence);
+							};	
+						});
+					});
+
+				writingSenRef.on('child_added',function(snapshot){
+					var key = snapshot.key();
+					var sentence = snapshot.val();
+					writingSenRef.child(key + "/tag/" + tagId).on('value',function(snapshot){
+						if(snapshot.val() !== null){
+							$scope.listOfSentence.push(sentence);
+							};	
+						});
+					});
+
+			}; // function loadtag
+
+
 			//bắt đầu thực hiện load data
 			loadData();
 			userPracObject.$watch(function(){
@@ -129,7 +154,6 @@ myApp.controller('userPracticeWriting', ['$scope','$rootScope','$stateParams','$
 					}else if (tag.display == false || tag.display == null){
 						tag.display = true;		
 					}
-					
 
 			};
 
@@ -153,7 +177,7 @@ myApp.controller('userPracticeWriting', ['$scope','$rootScope','$stateParams','$
 			$scope.historyList = "Please Wait";
 
 
-			
+			//load history practice of a sentence
 			$scope.practiceHistory = function(sentenceKey){
 				userPracObject.$loaded(function(){
 					$scope.history = [];			
@@ -167,6 +191,11 @@ myApp.controller('userPracticeWriting', ['$scope','$rootScope','$stateParams','$
 					});//loaded
 				});
 			};
+
+			$scope.tagData = function(tag){
+					loadTag(tag.tagkey);	
+					$scope.tagRelate = tag.name;
+				};
 
 
 

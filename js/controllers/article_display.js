@@ -11,9 +11,9 @@ myApp.controller('ArticleDisplay', ['$scope','$rootScope','$routeParams','$fireb
 			 
 			var senInArticle = new Firebase(FIREBASE_URL + "article/" + articleId + "/sentences");
 			
-			
 			var sentenceRef = new Firebase(FIREBASE_URL + "sentence");
 			var tagRef = new Firebase(FIREBASE_URL + "tag");
+			var tagObj = new $firebaseObject(tagRef);
 
 			var articleData = $firebaseArray(articleRef);
 			$scope.dataSenInArticle = $firebaseArray(senInArticle);
@@ -42,32 +42,41 @@ myApp.controller('ArticleDisplay', ['$scope','$rootScope','$routeParams','$fireb
 					$scope.moreDisable = true;
 					$scope.lessDisable = false;
 				};
-
+				tagObj.$loaded(function(){
 				$scope.listOfArticle = [];
 					articleRef.orderByChild('time').limitToLast(number).on('child_added',function(snapshot){
 					var key = snapshot.key();
 					var article = snapshot.val();
 				
 					var tagInArticle = [];
+					var gram = 0; 
+					var structure = 0;
+					var spec = 0;
 					tagRef.on('child_added',function(snapshot){
 					var value = snapshot.val();
-
-					var tagKey = snapshot.key();
-						
+					var tagKey = snapshot.key();			
 						tagRef.child(tagKey + "/article/" + key).on('value',function(snapshot){
 						if(snapshot.val() !== null){
-							//article.tag = value;
-							value.tagkey = tagKey;
-							tagInArticle.push(value);
-							};	
+							if(value.type == 1){
+									gram++;
+								}else if(value.type == 2){
+									structure++;
+								}else{
+									spec++;
+								};//else	
+							
+							};
 						});
 					});
-					article.tag = tagInArticle;
+					article.grammar = gram;
+					article.structure = structure;
+					article.spec = spec;
 					article.key = key;
 					$scope.listOfArticle.push(article);
 
 
 				}); 
+				});//loaded
 			};
 
 

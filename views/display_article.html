@@ -9,20 +9,20 @@
 
 <div class="panel panel-default">
   <div class="panel-heading"><a ng-href="{{article.link}}">{{article.title}}</a></div>
-    <ul class="list-group">
-     <li class="list-group-item">  
-       <a ng-href="#/display_sentence_article/{{article.key}}"  target="_self"><button class = "btn btn-default">Read this <span class="glyphicon glyphicon-chevron-right"></span></button></a> 
-    </li>
-  </ul>
+   
+     
+  
   <div class="panel-body">
 
-  	<span ng-repeat = "tag in article.tag | orderBy: 'type'" >
-  
-  		<a data-target="#{{tag.tagkey}}{{article.key}}"  data-toggle="collapse" ng-click= "tagDetail(tag)" ng-class = "tagClass(tag)" >{{tag.name}} </a>
-  
-  
-
-  	</span>
+  	<button class="btn btn-danger" type="button">
+      Grammar <span class="badge">{{article.grammar}}</span>
+    </button>
+    <button class="btn btn-warning" type="button">
+      Structure <span class="badge">{{article.structure}}</span>
+    </button>
+    <button class="btn btn-info" type="button">
+      Specification <span class="badge">{{article.spec}}</span>
+    </button>
 
   		<span ng-repeat = "tag in article.tag | orderBy: 'type'" >
 			<ul class="list-group" id="{{tag.tagkey}}{{article.key}}" class="collapse" >
@@ -31,6 +31,11 @@
   		</span>
 
   </div><!--panel body-->
+
+  <div class="panel-footer">
+      <a ng-href="#/display_sentence_article/{{article.key}}"  target="_self"><button class = "btn btn-primary">Read <span class="glyphicon glyphicon-chevron-right"></span></button></a>      
+  </div>
+
 </div><!--panel panel-default-->
 
 </div>

@@ -60,7 +60,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $
             // resolve: {
             //     currentAuth: function(Authentication) {
             //       return Authentication.requireAuth();
-            //     } //current Auth
+            //     },... //current Auth
             //   } //resolve
         })
          .state('sentence_article', {
@@ -100,7 +100,7 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $
           }).
           state('profile.article',{
             url: '/article',
-            templateUrl : 'views/user_profile_article.html',
+            templateUrl : 'views/user_profile_article1112.html',
             controller: 'userDisplayArticle'
           })
           .
@@ -111,8 +111,8 @@ myApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $
           })
           .
           state('praticeArticle',{
-            url: '/profile/writing/:articleId',
-            templateUrl : 'views/user_practice_writing.html',
+            url: '/profile/article/:articleId',
+            templateUrl : 'views/user_practice_article.html',
             controller: 'userPracticeArticle'
           })
         

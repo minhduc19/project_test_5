@@ -19,6 +19,7 @@ myApp.controller('WritingDisplay', ['$templateCache','$route','$scope','$rootSco
 			
 			var sentenceRef = new Firebase(FIREBASE_URL + "sentence");
 			var tagRef = new Firebase(FIREBASE_URL + "tag");
+			var tagObj = $firebaseObject(tagRef);
 
 			var writingData = $firebaseArray(writingRef);
 			$scope.dataSenInArticle = $firebaseArray(senInArticle);
@@ -30,7 +31,6 @@ myApp.controller('WritingDisplay', ['$templateCache','$route','$scope','$rootSco
 			});
 			var number = 2;
 			function loadWriting(testNumber){ //function để dùng cho pagination dạng đơn giản 
-				
 				
 				this.number = number;
 				number = number + testNumber;
@@ -46,32 +46,38 @@ myApp.controller('WritingDisplay', ['$templateCache','$route','$scope','$rootSco
 					$scope.lessDisable = false;
 				};
 				$scope.listOfWriting = [];
+				tagObj.$loaded(function(){
 					writingRef.limitToLast(number).on('child_added',function(snapshot){
 					//console.log(snapshot.val());
 					var key = snapshot.key();
 					var article = snapshot.val();
 					article.articleKey = key;
-
-					var tagInArticle = [];
+					var gram = 0; 
+					var structure = 0;
+					var spec = 0;
 					tagRef.on('child_added',function(snapshot){
 					var value = snapshot.val();
-					var tagKey = snapshot.key();
-						
+					var tagKey = snapshot.key();						
 						tagRef.child(tagKey + "/article/" + key).once('value',function(snapshot){
 						if(snapshot.val() !== null){
 							//article.tag = value;
-							value.tagkey = tagKey;
-							tagInArticle.push(value);
+							if(value.type == 1){
+									gram++;
+								}else if(value.type == 2){
+									structure++;
+								}else{
+									spec++;
+								};//else	
 							};	
 						});
 					});
-					article.tag = tagInArticle;
-					
+					article.grammar = gram;
+					article.structure = structure;
+					article.spec = spec;
 					$scope.listOfWriting.push(article);
 					return $scope.listOfWriting;
-
-
 				}); 
+				});//loaded
 			};
 		//};
 

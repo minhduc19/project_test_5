@@ -23,11 +23,34 @@ myApp.controller('SentenceDisplay', ['$scope','$rootScope','$stateParams','$fire
 			var writingParaObj = $firebaseObject (writingParaRef);
 			var tagObj = $firebaseObject(tagRef);
 
-				tagObj.$loaded(function(){
 
+			function  loadTag(tagId){
+				$scope.listOfSentence = [];
+				sentenceRef.on('child_added',function(snapshot){
+					var key = snapshot.key();
+					var sentence = snapshot.val();
+					sentenceRef.child(key + "/tag/" + tagId).on('value',function(snapshot){
+						if(snapshot.val() !== null){
+							$scope.listOfSentence.push(sentence);
+							};	
+						});
+					});
+
+				writingSenRef.on('child_added',function(snapshot){
+					var key = snapshot.key();
+					var sentence = snapshot.val();
+					writingSenRef.child(key + "/tag/" + tagId).on('value',function(snapshot){
+						if(snapshot.val() !== null){
+							$scope.listOfSentence.push(sentence);
+							};	
+						});
+					});
+
+			}; // function loadtag
+
+				tagObj.$loaded(function(){
 				$scope.len = 0;
 				$scope.paraList = [];
-				
 				writingParaRef.on("child_added",function(snapshot){
 					var paraKey =snapshot.key();
 					var paraValue = snapshot.val();
@@ -170,6 +193,11 @@ myApp.controller('SentenceDisplay', ['$scope','$rootScope','$stateParams','$fire
 					});
 				});
 			}//latestHistory
+
+			$scope.tagData = function(tag){
+				loadTag(tag.tagkey);	
+				$scope.tagRelate = tag.name;
+			};
 
 			
 	}]); //controller

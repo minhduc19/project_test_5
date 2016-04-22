@@ -1,0 +1,19 @@
+{{writingList}}
+
+ <div class="panel panel-default" ng-repeat="article in writingList">
+    <div class="panel-heading"><a ng-href="{{article.link}}">{{article.title}}</a></div>
+    <div class="panel-body">
+    	<button class="btn btn-danger" type="button">
+ 			Grammar <span class="badge">{{article.grammar}}</span>
+		</button>
+		<button class="btn btn-warning" type="button">
+ 			Structure <span class="badge">{{article.structure}}</span>
+		</button>
+		<button class="btn btn-info" type="button">
+ 			Specification <span class="badge">{{article.spec}}</span>
+		</button>
+    </div>
+    <div class="panel-footer">
+    	 <a ng-href = "#/profile/article/{{article.key}}" ><button class = "btn btn-primary">Read<span class="glyphicon glyphicon-chevron-right"></span></button></a> 
+    </div>
+  </div>

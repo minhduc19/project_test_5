@@ -29,7 +29,9 @@ myApp.controller('SentenceArticleDisplay', ['$scope','$rootScope','$stateParams'
 			var tagObj = $firebaseObject(tagRef);
 
 			
-			sentenceObj.$loaded(function(){
+			//sentenceObj.$loaded(function(){
+			//tagObj.$loaded(function(){
+			$scope.len = 0;
 			$scope.listOfSentence = [];
 			sentenceRef.on("child_added", function(snapshot){
 				
@@ -40,7 +42,7 @@ myApp.controller('SentenceArticleDisplay', ['$scope','$rootScope','$stateParams'
 					var tagOfSentence = [];
 					if(snapshot.val() !== null){
 
-							tagObj.$loaded(function(){
+							
 							tagRef.on('child_added',function(snapshot){
 								tagValue = snapshot.val();
 								tagKey = snapshot.key();
@@ -53,18 +55,20 @@ myApp.controller('SentenceArticleDisplay', ['$scope','$rootScope','$stateParams'
 									};//if	
 								});
 							});
-						});//tagObj.$loaded
+						
 
 						sentenceValue.valueoftag = tagOfSentence;
 						$scope.listOfSentence.push(sentenceValue);
+						$scope.len++;
 					}//if
 				});
 			});
-			$scope.len = 0;
-				for(i=0; i < $scope.listOfSentence.length;i++ ){									
-						$scope.len++;
-				};
-		});//loaded
+			// $scope.len = 0;
+			// 	for(i=0; i < $scope.listOfSentence.length;i++ ){									
+			// 			$scope.len++;
+			//};
+		//});//loaded
+		//});//tagObj.$loaded
 
 			$scope.data = function(sentence){
 				$scope.test = sentence;

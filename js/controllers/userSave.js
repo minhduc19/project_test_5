@@ -19,15 +19,13 @@ myApp.controller('userSave', ['$scope','$rootScope','$stateParams','$firebaseAut
 
 				console.log(currentUser);
 				
-
-				$scope.saveWriting = function(paraList){
-					//userRef.child(currentUser.uid + "/article/" + articleId).set(true);
-					writingRef.child(articleId + "/userPractice/" + currentUser.uid).set(true);
+				function saveDataWriting(list,dataRef){
+					dataRef.child(articleId + "/userPractice/" + currentUser.uid).set(true);
 					articleUser.child(currentUser.uid + "/" + articleId + "/time").set(Firebase.ServerValue.TIMESTAMP);
-					var paraLen = paraList.length;
+					var paraLen = list.length;
 					for(i = 0; i < paraLen; i++){
-						sentenceLen = paraList[i].length;
-						var sentenceList = paraList[i];
+						sentenceLen = list[i].length;
+						var sentenceList = list[i];
 						for(j=0; j < sentenceLen; j++){
 							if(sentenceList[j].practice != null){
 								var data = {}
@@ -42,7 +40,28 @@ myApp.controller('userSave', ['$scope','$rootScope','$stateParams','$firebaseAut
 					};//for(i 
 				};
 
-				$scope.saveArticle = function(listOfSentence){
+				function saveDataArticle(list,dataRef){
+					dataRef.child(articleId + "/userPractice/" + currentUser.uid).set(true);
+					articleUser.child(currentUser.uid + "/" + articleId + "/time").set(Firebase.ServerValue.TIMESTAMP);
+					var articleLen = list.length;
+					for(i = 0; i < articleLen; i++){
+						if(list[i].practice != null){
+							var data = {}
+							data["practice"] =  list[i].practice;
+							var sentenceKey = list[i].key
+							data[sentenceKey] = true ;
+							data.time = Firebase.ServerValue.TIMESTAMP;
+							practiceSentence.child(currentUser.uid).push(data);
+							console.log("ok");
+						}//if	
+					};//fori
+				};
 
+				$scope.saveWriting = function(paraList){
+					saveDataWriting(paraList,writingRef);			
+				};
+
+				$scope.saveArticle = function(listOfSentence){
+					saveDataArticle(listOfSentence,articleRef);
 				};
 	}]); //controller
